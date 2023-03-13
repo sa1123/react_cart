@@ -11,21 +11,21 @@ class App extends React.Component {
             {
                 price: 99,
                 title: 'Watch',
-                qty: 2,
+                qty: 0,
                 img: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80',
                 id: 1
             },
             {
                 price: 999,
                 title: 'Phone',
-                qty: 1,
+                qty: 0,
                 img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80',
                 id: 2
             },
             {
                 price: 9999,
                 title: 'Laptop',
-                qty: 4,
+                qty: 0,
                 img: 'https://images.unsplash.com/photo-1504707748692-419802cf939d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1147&q=80',
                 id: 3
             }
@@ -37,7 +37,7 @@ class App extends React.Component {
       const { products } = this.state;
       const index = products.indexOf(product);
 
-      if(this.getCartCount() > 99){
+      if(this.getCartCount() > 98){
         return;
       }
 
@@ -87,7 +87,8 @@ class App extends React.Component {
     let cartTotal = 0;
 
     products.map((product) => {
-      cartTotal = cartTotal + product.qty * product.price
+      cartTotal += product.qty * product.price;
+      return null;
     })
 
     return cartTotal;
