@@ -30,7 +30,8 @@ class App extends React.Component {
             //     img: 'https://images.unsplash.com/photo-1504707748692-419802cf939d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1147&q=80',
             //     id: 3
             // }
-      ]
+      ],
+      loading: true
     }
   }
 
@@ -47,7 +48,10 @@ class App extends React.Component {
         });
 
         const products = snapshot.docs.map((doc) => {
-          return doc.data();
+          const data = doc.data();
+
+          data['id'] = doc.id;
+          return data;
         })
 
         this.setState({
@@ -68,7 +72,8 @@ class App extends React.Component {
       products[index].qty += 1;
 
       this.setState({
-          products
+          products,
+          loading: false
       })
   }
   handleDecreaseQuantity = (product) => {
@@ -119,7 +124,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {products} = this.state;
+    const {products, loading} = this.state;
     return (
       <div className="App">
         <Navbar count={this.getCartCount()}/>
@@ -129,6 +134,7 @@ class App extends React.Component {
           onDecreaseQuantity={this.handleDecreaseQuantity}
           onDeleteProduct={this.onDeleteProduct}
         />
+        {loading && <h1>Loading</h1>}
         <div style={{fontSize: 20}}>Total = ₹{this.getCartTotal()}</div>
       </div>
     );
