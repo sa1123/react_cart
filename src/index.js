@@ -7,7 +7,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBK8D5zNZ8nd3vZO0nON1exm9QYgER-nbY",
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: "cart-dff24.firebaseapp.com",
   projectId: "cart-dff24",
   storageBucket: "cart-dff24.appspot.com",

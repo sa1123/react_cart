@@ -55,7 +55,8 @@ class App extends React.Component {
         })
 
         this.setState({
-          products
+          products,
+          loading: false
         })
       })
   }
@@ -72,8 +73,7 @@ class App extends React.Component {
       products[index].qty += 1;
 
       this.setState({
-          products,
-          loading: false
+          products
       })
   }
   handleDecreaseQuantity = (product) => {
