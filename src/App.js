@@ -33,14 +33,38 @@ class App extends React.Component {
       ],
       loading: true
     }
+    this.db = firebase.firestore();
   }
 
   componentDidMount () {
+    // firebase
+    //   .firestore()
+    //   .collection('products')
+    //   .get()
+    //   .then((snapshot) => {
+    //     console.log(snapshot);
+
+    //     snapshot.docs.map((doc) => {
+    //       console.log(doc.data())
+    //     });
+
+    //     const products = snapshot.docs.map((doc) => {
+    //       const data = doc.data();
+
+    //       data['id'] = doc.id;
+    //       return data;
+    //     })
+
+    //     this.setState({
+    //       products,
+    //       loading: false
+    //     })
+    //   })
+
     firebase
       .firestore()
       .collection('products')
-      .get()
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
         console.log(snapshot);
 
         snapshot.docs.map((doc) => {
@@ -57,8 +81,8 @@ class App extends React.Component {
         this.setState({
           products,
           loading: false
-        })
       })
+    })
   }
 
   handleIncreaseQuantity = (product) => {
@@ -123,11 +147,29 @@ class App extends React.Component {
     return cartTotal;
   }
 
+  addProduct = () => {
+    this.db
+      .collection('products')
+      .add({
+        img: '',
+        price: 900,
+        qty: 3,
+        title: 'Washing Machine'
+      })
+      .then((docRef) => {
+        console.log('Product added', docRef);
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+      })
+  }
+
   render() {
     const {products, loading} = this.state;
     return (
       <div className="App">
         <Navbar count={this.getCartCount()}/>
+        <button onClick={this.addProduct}>Add a Product</button>
         <Cart
           products={products}
           onIncreaseQuantity={this.handleIncreaseQuantity}
